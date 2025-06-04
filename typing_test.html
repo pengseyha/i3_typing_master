@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Typing Test</title>
+    <style>
+      body {
+        font-family: "Segoe UI", sans-serif;
+        background-color: #f2f4f8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+
+      #testText {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 700px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-size: 18px;
+        line-height: 1.6;
+        color: #444;
+      }
+
+      textarea {
+        width: 100%;
+        max-width: 700px;
+        height: 150px;
+        margin-top: 20px;
+        font-size: 16px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        resize: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      }
+
+      button {
+        margin-top: 20px;
+        padding: 12px 25px;
+        background-color: #007bff;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #0056b3;
+      }
+
+      #result {
+        margin-top: 25px;
+        font-size: 18px;
+        color: #28a745;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Typing Test</h1>
+
+    <div id="testText">
+      The quick brown fox jumps over the lazy dog. Practice your typing speed
+      and accuracy by copying this text into the input below.
+    </div>
+
+    <textarea id="userInput" placeholder="Start typing here..."></textarea>
+    <button onclick="checkTyping()">Submit</button>
+
+    <div id="result"></div>
+
+    <script>
+      function checkTyping() {
+        const testText = document.getElementById("testText").innerText.trim();
+        const userInput = document.getElementById("userInput").value.trim();
+
+        let wpm = 0;
+        let accuracy = 0;
+
+        if (userInput.length > 0) {
+          const startTime = performance.now();
+          const wordsTyped = userInput.split(" ").length;
+          const correctChars = [...userInput].filter(
+            (char, i) => char === testText[i]
+          ).length;
+
+          accuracy = Math.floor((correctChars / testText.length) * 100);
+          wpm = Math.floor(wordsTyped * (60 / 1)); // assuming 1 min for demo
+        }
+
+        document.getElementById(
+          "result"
+        ).innerText = `WPM: ${wpm} | Accuracy: ${accuracy}%`;
+      }
+    </script>
+  </body>
+</html>
